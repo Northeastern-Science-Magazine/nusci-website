@@ -5,6 +5,7 @@ import pagesRouter from "./routes/pages.route.js";
 import articlesRouter from "./routes/articles.route.js";
 import morgan from "morgan";
 import bodyParser from "body-parser";
+import auth from "./authenticator/authentication.js";
 //import articles from './routes/articles.route.js'
 
 /**
@@ -28,5 +29,10 @@ app.use("/public", express.static(process.cwd() + "/public"));
 app.use("/", pagesRouter);
 
 app.use("/articles", articlesRouter);
+
+//Need to figure out how to make this compatinle with Express Router Object
+app.get("/profile", auth, (req, res) => {
+    res.render('profile', {loggedIn: "yes"});
+  });
 
 export default app;

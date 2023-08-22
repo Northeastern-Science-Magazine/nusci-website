@@ -1,6 +1,6 @@
 import express from 'express'
 import path from 'path'
-import { isLoggedIn } from "../controllers/login_verification.js";
+import auth from "../authenticator/authentication.js";
 import UserCTRL from '../controllers/users.controller.js';
 import bodyParser from 'body-parser';
 
@@ -21,7 +21,6 @@ router.route('/').get((req, res) => {
 
 /* Authors HTML Router */
 router.route('/authors').get((req, res) => {
-    console.log(isLoggedIn);
     res.sendFile(path.resolve() + '/public/html/authors.html');
 })
 
@@ -54,4 +53,8 @@ router.route('/login')
 })
 .post(UserCTRL.apiPostLogin);
 
-export default router
+// router.route('/profile').get((req, res) => {
+//     res.render('profile', {loggedIn: "Yes"});
+// })
+
+export default router;

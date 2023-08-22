@@ -4,8 +4,6 @@ import jwt from "jsonwebtoken";
 
 /* This file may or may not be used */
 
-let isLoggedIn = false; // Initialize the variable as false
-
 const isLoggedInMiddleware = async (req, res, next) => {
   try {
     console.log("token: " + token);
@@ -21,7 +19,6 @@ const isLoggedInMiddleware = async (req, res, next) => {
         if (payload) {
           // store user data in request object
           req.user = payload;
-          isLoggedIn = true; // Set isLoggedIn to true if the token is verified
           next();
         } else {
           res.status(400).json({ error: "token verification failed" });
@@ -37,4 +34,4 @@ const isLoggedInMiddleware = async (req, res, next) => {
   }
 };
 
-export { isLoggedIn, isLoggedInMiddleware };
+export default isLoggedInMiddleware;

@@ -7,7 +7,6 @@ const model = mongoose.model;
  * UserSchema
  * 
  * Mongoose Schema defined for Unregistered Users.
- * Unregistered
  */
 const UnregisteredUser = new Schema({
     username: {type: String, unique: true, required: true},
