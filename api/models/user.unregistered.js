@@ -25,6 +25,6 @@ const UnregisteredUser = new Schema({
 });
 
 // User model
-const User = model("User", UnregisteredUser)
+const User = model("UnregisteredUser", UnregisteredUser)
 
 export default User;

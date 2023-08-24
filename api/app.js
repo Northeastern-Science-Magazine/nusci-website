@@ -9,6 +9,7 @@ import cookieParser from "cookie-parser";
 import sessions from "express-session";
 import MongoStore from "connect-mongo";
 import auth from "./authenticator/authentication.js";
+import Connection from "./db/connection.js";
 //import articles from './routes/articles.route.js'
 
 /**
@@ -30,15 +31,16 @@ app.use(morgan("tiny"));
 app.use(bodyParser.json());
 app.use("/public", express.static(process.cwd() + "/public"));
 
-app.use("/", pagesRouter);
-
 app.use("/articles", articlesRouter);
+
+//const connection = Connection.open("session");
 
 const { MONGO_USERNAME, MONGO_PASSWORD, MONGO_CLUSTER } = process.env;
 const DATABASE_URL = `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_CLUSTER}.xtdufxk.mongodb.net/?retryWrites=true&w=majority`;
 
+
 app.use(sessions({
-    store: MongoStore.create(DATABASE_URL),
+    store: new MongoStore({mongoUrl: DATABASE_URL}),
     secret: process.env.TOKEN_KEY,
     saveUninitialized: true,
     cookie: { maxAge: 1000 * 60 * 5 }, //5 minutes session
@@ -50,20 +52,24 @@ app.get('/logout',(req,res) => {
     res.redirect('/');
 });
 
-//Need to figure out how to make this compatinle with Express Router Object
-app.get("/profile", auth, (req, res) => {
-    session = req.session;
-    if(session.userid) {
+app.get("/profile", (req, res) => {
+    console.log(req.sessionID);
+    if(req.sessionID) {
         res.render('profile', {loggedIn: "yes"});
     } else {
-        res.json({LoggedIn: "nah"});
+        res.render('profile', {loggedIn: "no"});
     }
-    
-  });
+});
+
+//Need to figure out how to make this compatinle with Express Router Object
+// app.get("/profile", auth, (req, res) => {
+//     res.render('profile', {loggedIn: "yes"});
+//   });
 
   /*
    * Need to figure out how to utilize the existing authentication 
    * for this user session model.
    */
+app.use("/", pagesRouter);
 
 export default app;

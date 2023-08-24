@@ -3,6 +3,7 @@ import { config as dotenvConfig } from "dotenv";
 import UsersAccessor from "../database_accessor/users.accessor.js";
 import bcrypt from "bcryptjs"; // import bcrypt to hash passwords
 import jwt from "jsonwebtoken"; // import jwt to sign tokens
+//import session from "express-session";
 
 /**
  * UsersCTRL Class
@@ -41,10 +42,12 @@ export default class UsersCTRL {
                             expiresIn: "2h"
                         }
                     );
-
-                    user.token = token;
+                    console.log("Token:" + token);
+                    //user.token = token;
+                    //req.session.userid = user.username;
+                    // console.log(req.session);
                     res.json({ user });
-
+                    
                 } else {
                     res.status(400).json({ error: "password doesn't match" });
                 }
