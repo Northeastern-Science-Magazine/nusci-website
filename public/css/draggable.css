@@ -4,6 +4,12 @@
   justify-content: left;
 }
 
+#article-sources {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+
 .body-elements {
   padding: none;
 }
@@ -47,6 +53,25 @@
 .item.dragging :where(.details, i) {
   opacity: 0;
 }
+
+.sources-elements {
+  padding: none;
+}
+
+.sources-elements .item {
+  list-style: none;
+  display: flex;
+  cursor: move;
+  background: #fff;
+  align-items: center;
+  border-radius: 5px;
+  padding: 0px 13px;
+  margin-bottom: 11px;
+  /* box-shadow: 0 2px 4px rgba(0,0,0,0.06); */
+  border: 1px solid #ccc;
+  justify-content: space-between;
+}
+
 
 .ui-draggable-dots {
   height: 20px;

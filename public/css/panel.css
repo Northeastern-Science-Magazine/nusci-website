@@ -21,6 +21,10 @@
   justify-content: center;
 }
 
+#sources-panel {
+  justify-content: center;
+}
+
 #header-panel {
   display: flex;
   flex-direction: row;

@@ -30,7 +30,9 @@
     "mercedlogger": "^1.0.1",
     "mongodb": "^5.6.0",
     "mongoose": "^7.3.1",
-    "morgan": "^1.10.0",
-    "nodemon": "^3.0.1"
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
   }
 }
