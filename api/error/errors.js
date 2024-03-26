@@ -32,6 +32,7 @@ const Errors = {
   },
   404: {
     NotFound: "Page not found",
+    UserNotFound: "User not found",
   },
   418: {
     Teapot: "I'm a teapot",
@@ -40,6 +41,7 @@ const Errors = {
     InternalServerError: "Internal server error",
     DataGET: "Could not get data",
     DataPOST: "Could not post data",
+    DataPUT: "Could not put data",
   },
 };
 
