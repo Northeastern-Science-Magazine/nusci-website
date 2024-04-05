@@ -137,7 +137,7 @@
             <div class="panel">
               <div id="sources-panel">
                 <h3>Article Sources</h3>
-                <ul id="element-list" class="sources-elements">
+                <ul id="element-sources-list" class="sources-elements">
                   <li class="item" draggable="true">
                     <div class="details">
                       <textarea
@@ -145,28 +145,14 @@
                         placeholder="source"
                       ></textarea>
                     </div>
+                    <button
+                    id="delete-source-button" type="button">
                     <img
                       id="delete-item"
                       class="ui-delete-element"
                       src="/public/assets/trashcan.webp"
                     />
-                    <img
-                      class="ui-draggable-dots"
-                      src="/public/assets/draggabledots.webp"
-                    />
-                  </li>
-                  <li class="item" draggable="true">
-                    <div class="details">
-                      <textarea
-                        class="input-text pull"
-                        placeholder="pull"
-                      ></textarea>
-                    </div>
-                    <img
-                      id="delete-item"
-                      class="ui-delete-element"
-                      src="/public/assets/trashcan.webp"
-                    />
+                    </button>
                     <img
                       class="ui-draggable-dots"
                       src="/public/assets/draggabledots.webp"
@@ -176,8 +162,7 @@
               </div>
             </div>
           </div>
-          <input id="source-list" type="hidden" name="body" />
-          <input id="pull-list" type="hidden" name="pull" />
+          <input id="source-list" type="hidden" name="sources" />
           <input id="order" type="hidden" name="order" />
         </div>
         <div id="add-element-container">
@@ -186,6 +171,11 @@
               <h3>Add an element:</h3>
               <button type="button" class="btn" id="add-body-pg">
                 Add body paragraph
+              </button>
+              <br />
+              <br />
+              <button type="button" class="btn" id="add-sources-pg">
+                Add another source
               </button>
               <br />
               <br />

@@ -1,3 +1,4 @@
+
 window.addEventListener("load", () => {
   const sortableList = document.querySelector(".body-elements");
   const items = sortableList.querySelectorAll(".item");
@@ -5,20 +6,31 @@ window.addEventListener("load", () => {
 
   document.getElementById("add-body-pg").addEventListener("click", () => {
     list = document.getElementById("element-list");
-    list.appendChild(generateElement("body", "", items.length));
+    list.appendChild(generateElement("body", "", items.length, list));
     makeDraggable();
   });
+
+  document.getElementById("add-sources-pg").addEventListener("click", () => {
+    list = document.getElementById("element-sources-list");
+    list.appendChild(generateElement("source", "", items.length, list));
+    makeDraggable();
+  });
+
   document.getElementById("add-pull-quote").addEventListener("click", () => {
     list = document.getElementById("element-list");
-    list.appendChild(generateElement("pull", "", items.length));
+    list.appendChild(generateElement("pull", "", items.length, list));
     makeDraggable();
   });
   document.getElementById("submit").addEventListener("click", () => {
     updateFormFields();
   });
+  document.getElementById("delete-source-button").addEventListener("click", () => {
+    list = document.getElementById("element-sources-list");
+    list.removeChild(list.children[0]);
+  });
 });
 
-function generateElement(type, text, index) {
+function generateElement(type, text, index, list) {
   //textarea
   let textarea = document.createElement("textarea");
   textarea.classList.add("input-text", type);
@@ -30,11 +42,22 @@ function generateElement(type, text, index) {
   div.classList.add("details");
   div.appendChild(textarea);
 
+  //delete button
+  let deleteButton = document.createElement("button");
+  deleteButton.type = "button";
+  deleteButton.id = `delete-item-${list.children.length}`; 
+  deleteButton.addEventListener("click", () => {
+    console.log(deleteButton.parentNode);
+    list.removeChild(deleteButton.parentNode);
+  });
+
   //delete image icon
   let deleteImg = document.createElement("img");
-  deleteImg.id = `delete-item-${index}`;
-  deleteImg.classList.add("ui-delete-element");
   deleteImg.src = "/public/assets/trashcan.webp";
+  deleteImg.classList.add("ui-delete-element");
+
+  //delete button with icon
+  deleteButton.appendChild(deleteImg);
 
   //draggable dots icon
   let dragImg = document.createElement("img");
@@ -46,16 +69,18 @@ function generateElement(type, text, index) {
   li.classList.add("item");
   li.draggable = true;
   li.appendChild(div);
-  li.appendChild(deleteImg);
+  li.appendChild(deleteButton);
   li.appendChild(dragImg);
   return li;
 }
 
 function updateFormFields() {
+  const sp = JSON.stringify(getAllSources());
   const bps = JSON.stringify(getAllBodyParagraphs());
   const pqs = JSON.stringify(getAllPullQuotes());
-  const order = JSON.stringify(getOrder());
+  const order = JSON.stringify(getOrder()); 
 
+  document.getElementById("source-list").value = sp;
   document.getElementById("body-list").value = bps;
   document.getElementById("pull-list").value = pqs;
   document.getElementById("order").value = order;
@@ -70,6 +95,15 @@ function getAllBodyParagraphs() {
     bodyParagraphs.push(bp.value);
   }
   return bodyParagraphs;
+}
+
+function getAllSources() {
+  const sourcesElements = document.querySelectorAll(".source");
+  const sourcesParagraphs = [];
+  for (let sp of sourcesElements) {
+    sourcesParagraphs.push(sp.value);
+  }
+  return sourcesParagraphs;
 }
 
 function getAllPullQuotes() {
